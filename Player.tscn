@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://bjchfuwa1i12c"]
+
+[ext_resource type="Texture2D" uid="uid://bl6i8a4wyom6d" path="res://art/tanks/Tanks/tankBeige_outline.png" id="1_i8pq1"]
+[ext_resource type="Script" path="res://Player.gd" id="1_mgrd2"]
+[ext_resource type="Texture2D" uid="uid://dkv0gyjd2bfl4" path="res://art/tanks/Tanks/barrelBeige_outline.png" id="2_og4t1"]
+[ext_resource type="Script" path="res://Turret.gd" id="3_gw7y5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gmtnh"]
+size = Vector2(82, 78)
+
+[node name="Player" type="Node2D"]
+
+[node name="Body" type="CharacterBody2D" parent="."]
+script = ExtResource("1_mgrd2")
+
+[node name="Camera2D" type="Camera2D" parent="Body"]
+zoom = Vector2(0.25, 0.25)
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.5
+drag_top_margin = 0.5
+drag_right_margin = 0.5
+drag_bottom_margin = 0.5
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+shape = SubResource("RectangleShape2D_gmtnh")
+
+[node name="BodySpr" type="Sprite2D" parent="Body"]
+rotation = 1.5708
+texture = ExtResource("1_i8pq1")
+
+[node name="Turret" type="CharacterBody2D" parent="Body"]
+position = Vector2(-2, 0)
+rotation = 1.5708
+script = ExtResource("3_gw7y5")
+
+[node name="TurretSpr" type="Sprite2D" parent="Body/Turret"]
+rotation = 1.5708
+texture = ExtResource("2_og4t1")
+centered = false
+offset = Vector2(-12, -48)
