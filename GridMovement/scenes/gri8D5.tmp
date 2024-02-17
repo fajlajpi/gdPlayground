@@ -9477,5 +9477,3 @@ position = Vector2(-72, 56)
 [node name="Interactible" parent="." instance=ExtResource("6_6dq5c")]
 
 [connection signal="interacted" from="Player" to="Campfire" method="_on_player_interacted"]
-[connection signal="interacted" from="Player" to="Campfire2" method="_on_player_interacted"]
-[connection signal="interacted" from="Player" to="Campfire3" method="_on_player_interacted"]

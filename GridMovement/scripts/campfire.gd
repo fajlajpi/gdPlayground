@@ -14,10 +14,14 @@ func _ready():
 func _process(delta):
 	pass
 
-func _on_player_interacted():
+func _on_player_interacted(colliding_with):
 	
 	print("Got the signal.")
-	if sprite.animation == animation_on:
-		sprite.play(animation_off)
+	if colliding_with == self:
+		print("Hey, that's me! ", colliding_with)
+		if sprite.animation == animation_on:
+			sprite.play(animation_off)
+		else:
+			sprite.play(animation_on)
 	else:
-		sprite.play(animation_on)
+		print("not me")

@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://ckiwp3g1mvbgb"]
+
+[ext_resource type="Script" path="res://GridMovement/scripts/campfire.gd" id="1_lokbe"]
+[ext_resource type="Texture2D" uid="uid://bpm55dgbh7nil" path="res://art/roguelikerpg/roguelikeSheet_transparent.png" id="2_81wfd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pdgy"]
+atlas = ExtResource("2_81wfd")
+region = Rect2(238, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lggmf"]
+atlas = ExtResource("2_81wfd")
+region = Rect2(255, 136, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oc0m3"]
+atlas = ExtResource("2_81wfd")
+region = Rect2(221, 136, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hlour"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pdgy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lggmf")
+}],
+"loop": true,
+"name": &"burning",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oc0m3")
+}],
+"loop": true,
+"name": &"extinguished",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_udlpj"]
+size = Vector2(17.7778, 17.7778)
+
+[node name="Campfire" type="Area2D"]
+position = Vector2(-24, 24)
+script = ExtResource("1_lokbe")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hlour")
+animation = &"extinguished"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.9, 0.9)
+shape = SubResource("RectangleShape2D_udlpj")

@@ -10,6 +10,8 @@ var interacting : bool = false
 var interaction_timer : float = 0.5
 var animation_speed : float = 0.3
 
+enum State {STATE_IDLE, STATE_MOVING, STATE_INTERACTING}
+
 @onready var sprite : AnimatedSprite2D = %AnimatedSprite2D
 @onready var ray : RayCast2D = $RayCast2D
 @onready var timer : Timer = $Timer
@@ -44,7 +46,7 @@ func interact(dir):
 			if colliding_with is Interactible:
 				if not interacting:
 					interacting = true
-					interacted.emit()
+					interacted.emit(colliding_with)
 					print("Sent the signal")
 					timer.start(interaction_timer)
 					await timer.timeout
