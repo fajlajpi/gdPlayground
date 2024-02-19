@@ -2,26 +2,26 @@ extends Interactible
 
 var interactible_type : String = "TOGGLE"
 @onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
-var animation_on : String = "burning"
-var animation_off : String = "extinguished"
+
+@export var animation_on : String = "burning"
+@export var animation_off : String = "extinguished"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	add_to_group("interactible")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
-func _on_player_interacted(colliding_with):
-	
-	print("Got the signal.")
-	if colliding_with == self:
-		print("Hey, that's me! ", colliding_with)
-		if sprite.animation == animation_on:
-			sprite.play(animation_off)
-		else:
-			sprite.play(animation_on)
+func _action():
+	print("Got the call to action!")
+	if sprite.animation == animation_on:
+		sprite.play(animation_off)
 	else:
-		print("not me")
+		sprite.play(animation_on)
+
+func _on_player_interacted(colliding_with):
+	print("Got the signal.")
+	super(colliding_with)

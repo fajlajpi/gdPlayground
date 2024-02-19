@@ -15,6 +15,7 @@ enum State {STATE_IDLE, STATE_MOVING, STATE_INTERACTING}
 @onready var sprite : AnimatedSprite2D = %AnimatedSprite2D
 @onready var ray : RayCast2D = $RayCast2D
 @onready var timer : Timer = $Timer
+@onready var interaction_mgr : Node = get_node("InteractionManager")
 
 signal interacted
 
@@ -43,14 +44,13 @@ func interact(dir):
 		else: 	# if something, then what?
 			var colliding_with = ray.get_collider()
 			print(colliding_with)
-			if colliding_with is Interactible:
-				if not interacting:
-					interacting = true
-					interacted.emit(colliding_with)
-					print("Sent the signal")
-					timer.start(interaction_timer)
-					await timer.timeout
-					interacting = false
+			if not interacting:
+				interacting = true
+				print("Sent the signal the mgr should catch")
+				interacted.emit(colliding_with)
+				timer.start(interaction_timer)
+				await timer.timeout
+				interacting = false
 				
 	
 	# interactible resources?
