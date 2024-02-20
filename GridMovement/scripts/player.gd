@@ -10,7 +10,7 @@ var interacting : bool = false
 var interaction_timer : float = 0.5
 var animation_speed : float = 0.3
 
-enum State {STATE_IDLE, STATE_MOVING, STATE_INTERACTING}
+enum State {IDLE, MOVING, INTERACTING}
 
 @onready var sprite : AnimatedSprite2D = %AnimatedSprite2D
 @onready var ray : RayCast2D = $RayCast2D
