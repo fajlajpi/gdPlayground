@@ -76,7 +76,8 @@ func _process(delta):
 					msg = {"dir": action_direction}
 					_change_state(States.MOVING, msg)
 				Actions.INTERACT:
-					pass
+					msg = {"dir": action_direction}
+					_change_state(States.INTERACTING, msg)
 				Actions.ATTACK:
 					pass
 				Actions.OTHER:
@@ -91,13 +92,27 @@ func _process(delta):
 				else:  # Otherwise go back to idling
 					_change_state(States.IDLE)
 		States.INTERACTING:
-			pass
+			if timer.is_stopped():
+				_change_state(States.IDLE)
 		States.ATTACKING:
 			pass
 
 
 func _interact(dir):
-	pass
+	print("Interacting " + dir)
+	
+	var animation_directions = {
+		"up": "idle_up",
+		"down": "idle_down",
+		"left": "idle_left",
+		"right": "idle_right",
+	}
+	sprite.animation = animation_directions[dir]
+	
+	var colliding_with = ray.get_collider()
+	print("Interacting with: " + str(colliding_with))
+	interacted.emit(colliding_with)
+	timer.start(interaction_timer)
 
 
 func _move(dir):
@@ -160,6 +175,7 @@ func _change_state(new_state: States, msg : Dictionary = {}):
 			_move(msg["dir"])
 		States.INTERACTING:
 			current_state = States.INTERACTING
+			_interact(msg["dir"])
 		States.ATTACKING:
 			current_state = States.ATTACKING
 		_:
