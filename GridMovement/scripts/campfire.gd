@@ -8,7 +8,7 @@ var interactible_type : String = "TOGGLE"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	add_to_group("interactible")
+	super()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
