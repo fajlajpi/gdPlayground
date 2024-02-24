@@ -4,6 +4,7 @@ class_name Player
 # Private variables
 var tile_size : int = 16
 var move_tween : Tween
+var move_buffer_direction : String = "none"
 
 
 # Export Variables
@@ -16,6 +17,7 @@ var move_tween : Tween
 @onready var sprite : AnimatedSprite2D = %AnimatedSprite2D
 @onready var ray : RayCast2D = $RayCast2D
 @onready var timer : Timer = $Timer
+@onready var move_buffer_timer : Timer = $MoveBufferTimer
 @onready var interaction_mgr : Node = get_node("InteractionManager")
 
 # Signals
@@ -46,8 +48,9 @@ func _ready():
 	position = position.snapped(Vector2.ONE * tile_size)
 	position += Vector2.ONE * tile_size / 2
 	
-	# set up our timer
-	timer.one_shot = true
+	# set up our timers to be one shot
+	timer.one_shot = true  # This one is used in interactions
+	move_buffer_timer.one_shot = true  # This one is the move buffer
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -60,7 +63,9 @@ func _process(delta):
 	# CHECK FOR THE FOUR INPUT DIRECTION ACTIONS
 	for dir in input_directions.keys():
 		if Input.is_action_pressed(dir):
-			action_direction = dir
+			action_direction = dir  # action_direction is reset every frame
+			move_buffer_direction = dir  # move_buffer_dir isn't, so we keep the last direction here
+			move_buffer_timer.start(action_buffer)
 			print("Input: " + dir)
 	
 	match current_state:
@@ -87,9 +92,16 @@ func _process(delta):
 			if not move_tween.is_running():  # If we have finished previous moving tween
 				# Check if we want to move some more to immediately move again
 				if _look_ahead(action_direction) == Actions.MOVE:
+					print("MOVED IMMEDIATLY AFTER TWEEN")
 					msg = {"dir": action_direction}  # Reassign msg with dir in case we change directions
 					_change_state(States.MOVING, msg)  # Re-enter moving state with (new) direction
+				elif _look_ahead(move_buffer_direction) == Actions.MOVE:
+					print("MOVED IMMEDIATELY AFTER TWEEN FROM BUFFER")
+					msg = {"dir": move_buffer_direction}  # Reassign msg with dir in case we change directions
+					move_buffer_direction = "none"  # Clear the move buffer direction
+					_change_state(States.MOVING, msg)  # Re-enter moving state with (new) direction
 				else:  # Otherwise go back to idling
+					print("MOVE OVER BACK TO IDLING")
 					_change_state(States.IDLE)
 		States.INTERACTING:
 			if timer.is_stopped():
@@ -172,6 +184,7 @@ func _change_state(new_state: States, msg : Dictionary = {}):
 					msg = {}
 		States.MOVING:
 			current_state = States.MOVING
+			move_buffer_direction = "none"  # Clear move buffer so we don't move twice
 			_move(msg["dir"])
 		States.INTERACTING:
 			current_state = States.INTERACTING

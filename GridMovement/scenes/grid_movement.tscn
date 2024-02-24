@@ -8918,6 +8918,7 @@ script = ExtResource("1_ih4rh")
 [node name="Player" type="Area2D" parent="InteractionManager" groups=["player"]]
 position = Vector2(8, 8)
 script = ExtResource("2_v3g6f")
+interaction_timer = 0.3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionManager/Player"]
 shape = SubResource("RectangleShape2D_4scfa")
@@ -8934,6 +8935,8 @@ autoplay = "idle_right"
 [node name="Camera2D" type="Camera2D" parent="InteractionManager/Player"]
 
 [node name="Timer" type="Timer" parent="InteractionManager/Player"]
+
+[node name="MoveBufferTimer" type="Timer" parent="InteractionManager/Player"]
 
 [node name="Campfire" parent="InteractionManager" instance=ExtResource("5_0gvd8")]
 
