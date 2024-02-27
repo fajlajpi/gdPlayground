@@ -19,6 +19,7 @@ var move_buffer_direction : String = "none"
 @onready var timer : Timer = $Timer
 @onready var move_buffer_timer : Timer = $MoveBufferTimer
 @onready var interaction_mgr : Node = get_node("InteractionManager")
+@onready var audio_player : AudioStreamPlayer = $AudioStreamPlayer
 
 # Signals
 signal interacted
@@ -52,6 +53,8 @@ func _ready():
 	timer.one_shot = true  # This one is used in interactions
 	move_buffer_timer.one_shot = true  # This one is the move buffer
 	
+	
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -64,8 +67,6 @@ func _process(delta):
 	for dir in input_directions.keys():
 		if Input.is_action_pressed(dir):
 			action_direction = dir  # action_direction is reset every frame
-			move_buffer_direction = dir  # move_buffer_dir isn't, so we keep the last direction here
-			move_buffer_timer.start(action_buffer)
 			print("Input: " + dir)
 	
 	match current_state:
@@ -103,6 +104,12 @@ func _process(delta):
 				else:  # Otherwise go back to idling
 					print("MOVE OVER BACK TO IDLING")
 					_change_state(States.IDLE)
+			else:  # If tween is running, we listen for input to add to buffer
+				for dir in input_directions.keys():
+					if Input.is_action_just_pressed(dir):
+						move_buffer_direction = dir
+						move_buffer_timer.start(action_buffer)
+						print("Buffer Input: " + dir)
 		States.INTERACTING:
 			if timer.is_stopped():
 				_change_state(States.IDLE)
@@ -141,12 +148,13 @@ func _move(dir):
 	}
 	
 	sprite.animation = animation_directions[dir]
-	sprite.speed_scale = 2
-	sprite.play()
+	sprite.speed_scale = 1.5
+	if not sprite.is_playing():  # only start if not playing already
+		sprite.play()
 	
 	await move_tween.finished
 	print("Finished moving")
-	sprite.stop()
+	
 
 func _attack(dir):
 	pass
@@ -179,9 +187,10 @@ func _change_state(new_state: States, msg : Dictionary = {}):
 		States.IDLE:
 			current_state = States.IDLE
 			match previous_state:
-				States.MOVING:  # We go from MOVING to IDLE, so kill the tween and clear MSG
+				States.MOVING:  # We go from MOVING to IDLE
 					move_tween.kill()
-					msg = {}
+					sprite.stop()  # stop the animation
+					msg = {}  # clear msg
 		States.MOVING:
 			current_state = States.MOVING
 			move_buffer_direction = "none"  # Clear move buffer so we don't move twice

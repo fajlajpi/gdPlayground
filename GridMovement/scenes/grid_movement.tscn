@@ -1,11 +1,13 @@
-[gd_scene load_steps=33 format=3 uid="uid://ctdgdcqeeh8un"]
+[gd_scene load_steps=35 format=3 uid="uid://ctdgdcqeeh8un"]
 
 [ext_resource type="Script" path="res://GridMovement/scripts/interaction_manager.gd" id="1_ih4rh"]
 [ext_resource type="Texture2D" uid="uid://dx47ufru3nbtx" path="res://GridMovement/art/tilemap.png" id="1_so3k1"]
 [ext_resource type="Texture2D" uid="uid://bpm55dgbh7nil" path="res://art/roguelikerpg/roguelikeSheet_transparent.png" id="2_5gr1y"]
 [ext_resource type="Script" path="res://GridMovement/scripts/player_v2.gd" id="2_v3g6f"]
 [ext_resource type="Texture2D" uid="uid://bqtek3hlo0lal" path="res://art/roguelikerpg/roguelikeChar_transparent.png" id="3_bjqp0"]
+[ext_resource type="AudioStream" uid="uid://dni7knj1afxfy" path="res://art/music/Airship Serenity.mp3" id="4_7k82s"]
 [ext_resource type="PackedScene" uid="uid://ckiwp3g1mvbgb" path="res://GridMovement/scenes/campfire.tscn" id="5_0gvd8"]
+[ext_resource type="Script" path="res://GridMovement/scripts/audio_stream_player.gd" id="5_brfur"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4scfa"]
 size = Vector2(14, 14)
@@ -8937,6 +8939,12 @@ autoplay = "idle_right"
 [node name="Timer" type="Timer" parent="InteractionManager/Player"]
 
 [node name="MoveBufferTimer" type="Timer" parent="InteractionManager/Player"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="InteractionManager/Player"]
+stream = ExtResource("4_7k82s")
+pitch_scale = 3.19
+autoplay = true
+script = ExtResource("5_brfur")
 
 [node name="Campfire" parent="InteractionManager" instance=ExtResource("5_0gvd8")]
 
