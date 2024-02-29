@@ -8931,7 +8931,7 @@ collide_with_areas = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="InteractionManager/Player"]
 unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_wn7f1")
-animation = &"walk_down"
+animation = &"idle_down"
 autoplay = "idle_right"
 
 [node name="Camera2D" type="Camera2D" parent="InteractionManager/Player"]
