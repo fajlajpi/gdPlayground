@@ -8942,9 +8942,13 @@ autoplay = "idle_right"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="InteractionManager/Player"]
 stream = ExtResource("4_7k82s")
+volume_db = -20.0
 pitch_scale = 3.19
 autoplay = true
 script = ExtResource("5_brfur")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="InteractionManager/Player"]
+current = true
 
 [node name="Campfire" parent="InteractionManager" instance=ExtResource("5_0gvd8")]
 

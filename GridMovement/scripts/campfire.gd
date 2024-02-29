@@ -2,6 +2,7 @@ extends Interactible
 
 var interactible_type : String = "TOGGLE"
 @onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
+@onready var audio : AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 @export var animation_on : String = "burning"
 @export var animation_off : String = "extinguished"
@@ -19,8 +20,10 @@ func _action():
 	print("Got the call to action!")
 	if sprite.animation == animation_on:
 		sprite.play(animation_off)
+		audio.playing = false
 	else:
 		sprite.play(animation_on)
+		audio.playing = true
 
 func _on_player_interacted(colliding_with):
 	print("Got the signal.")
