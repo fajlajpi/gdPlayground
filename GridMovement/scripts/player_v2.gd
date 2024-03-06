@@ -1,5 +1,4 @@
 extends Area2D
-class_name Player
 
 # Private variables
 var tile_size : int = 16

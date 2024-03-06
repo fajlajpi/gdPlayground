@@ -2,11 +2,17 @@ class_name Moving
 extends PlayerState
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func handle_input(_event : InputEvent) -> void:
+	pass
+	
+func update(_delta : float) -> void:
+	pass
 
+func physics_update(_delta : float) -> void:
+	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func enter(_msg := {}) -> void:
+	print_debug("Entered MOVING state.")
+	
+func exit() -> void:
 	pass
