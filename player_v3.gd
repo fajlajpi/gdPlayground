@@ -3,8 +3,7 @@ extends Area2D
 
 # Private variables
 var tile_size : int = 16
-var move_tween : Tween
-var move_buffer_direction : String = "none"
+
 
 
 # Export Variables

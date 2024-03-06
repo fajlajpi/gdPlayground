@@ -19,8 +19,8 @@ func handle_input(event) -> void:
 	if action_direction != "none":
 		match _look_ahead(action_direction):
 			Actions.MOVE:
-				state_machine.transition_to("Moving", {"dir": action_direction})
 				print_debug("Transitioning to Moving.")
+				state_machine.transition_to("Moving", {"dir": action_direction})
 			Actions.INTERACT:
 				pass
 			Actions.OTHER:
