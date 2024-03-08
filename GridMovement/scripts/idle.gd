@@ -4,13 +4,16 @@ extends PlayerState
 # IDLE state waits for input to take appropriate actions
 
 
-func handle_input(event) -> void:
+func handle_input(_event) -> void:
 	var action_to_take : int = -1
 	var action_direction : String = "none"
 	
 	# CHECK INPUT
 	# CHECK FOR THE FOUR INPUT DIRECTION ACTIONS
-	action_direction = _player_input(event)
+	for dir in input_directions.keys():
+		if _event.is_action_pressed(dir, true):
+			action_direction = dir
+			print("SM Input: " + dir)
 	
 	# IF THERE IS DIRECTIONAL INPUT
 	if action_direction != "none":
@@ -26,11 +29,11 @@ func handle_input(event) -> void:
 		
 
 func enter(msg:={}) -> void:
-	pass
+	print_debug("Entering IDLE.")
 	
 	
 func exit() -> void:
-	pass
+	print_debug("Exiting IDLE.")
 	
 
 func update(delta: float) -> void:

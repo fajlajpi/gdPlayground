@@ -37,11 +37,3 @@ func _look_ahead(dir) -> Actions:
 				return Actions.INTERACT
 			else:
 				return Actions.OTHER
-				
-				
-func _player_input(event) -> String:
-	for dir in input_directions.keys():
-		if event.is_action_pressed(dir, true):
-			print("SM Input: " + dir)
-			return dir
-	return "none"
