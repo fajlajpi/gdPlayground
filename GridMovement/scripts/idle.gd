@@ -10,10 +10,7 @@ func handle_input(event) -> void:
 	
 	# CHECK INPUT
 	# CHECK FOR THE FOUR INPUT DIRECTION ACTIONS
-	for dir in input_directions.keys():
-		if event.is_action_pressed(dir):
-			action_direction = dir  # action_direction is reset every frame
-			print("SM Input: " + dir)
+	action_direction = _player_input(event)
 	
 	# IF THERE IS DIRECTIONAL INPUT
 	if action_direction != "none":
