@@ -1,6 +1,8 @@
 class_name Player
 extends Area2D
 
+signal interacted
+
 # Private variables
 var tile_size : int = 16
 
@@ -26,7 +28,9 @@ func _ready():
 	position = position.snapped(Vector2.ONE * tile_size)
 	position += Vector2.ONE * tile_size / 2
 	
-	
+	# set up our timers to be one shot
+	timer.one_shot = true  # This one is used in interactions
+	move_buffer_timer.one_shot = true  # This one is the move buffer
 	
 	
 

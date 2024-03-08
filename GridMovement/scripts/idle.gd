@@ -22,7 +22,8 @@ func handle_input(event) -> void:
 				print_debug("Transitioning to Moving.")
 				state_machine.transition_to("Moving", {"dir": action_direction})
 			Actions.INTERACT:
-				pass
+				print_debug("Transitioning to Interacting.")
+				state_machine.transition_to("Interacting", {"dir": action_direction})
 			Actions.OTHER:
 				print("Ahead is OTHER, don't know what to do.")
 		
