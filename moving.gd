@@ -2,29 +2,36 @@ class_name Moving
 extends PlayerState
 
 var move_tween : Tween
-var move_buffer_direction : String = "none"
+var move_buffer_continuous : String = "none"
+var move_buffer_just_pressed : String = "none"
 
 func handle_input(_event : InputEvent) -> void:
 	# CHECK INPUT
 	# CHECK FOR THE FOUR INPUT DIRECTION ACTIONS
 	# IF INPUT, ADD IT TO BUFFER
-	var action_direction : String = "none"
 	for dir in input_directions.keys():
 		if _event.is_action_pressed(dir, true):
-			move_buffer_direction = dir
-			print("SM:M Input: " + dir)
-	
+			if not move_tween.is_running():  # Take in continuous input only if tween has finished
+				move_buffer_continuous = dir
+				print("SM:M Continuous Input: " + dir)
+		if _event.is_action_pressed(dir, false):  # Take buffer input only if tween is running
+			if move_tween.is_running():
+				move_buffer_just_pressed = dir
+				print("SM:M Buffer Input: " + dir)
 	
 func update(_delta : float) -> void:
-	if not move_tween.is_running():
-		if move_buffer_direction != "none":
-			print_debug("Move ended, buffer not empty, check ahead.")
-			match _look_ahead(move_buffer_direction):
-				Actions.MOVE:
-					_move(move_buffer_direction)
-				_:
-					state_machine.transition_to("Idle")
-		else:
+	if move_tween.is_running():
+		move_buffer_continuous = "none"
+	else:
+		if move_buffer_continuous != "none":
+			if _look_ahead(move_buffer_continuous) == Actions.MOVE:
+				_move(move_buffer_continuous)
+			move_buffer_continuous = "none"
+		elif move_buffer_just_pressed != "none":
+			if _look_ahead(move_buffer_just_pressed) == Actions.MOVE:
+				_move(move_buffer_just_pressed)
+				move_buffer_just_pressed = "none"
+		else:  # No inputs, back to idle
 			state_machine.transition_to("Idle")
 
 func physics_update(_delta : float) -> void:
@@ -40,11 +47,12 @@ func enter(_msg := {"dir":"none"}) -> void:
 func exit() -> void:
 	print_debug("Exiting MOVING.")
 	player.sprite.stop()
-	move_buffer_direction = "none"
+	move_buffer_continuous = "none"
+	move_buffer_just_pressed = "none"
+	move_tween.kill()
 
 func _move(dir):
 	print_debug("Started moving")
-	move_buffer_direction = "none"
 	move_tween = create_tween()
 	move_tween.tween_property(player, "position", player.position + input_directions[dir] * player.tile_size, 
 		player.animation_speed).set_trans(Tween.TRANS_LINEAR)
