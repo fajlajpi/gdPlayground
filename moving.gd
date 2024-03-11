@@ -10,14 +10,12 @@ func handle_input(_event : InputEvent) -> void:
 	# CHECK FOR THE FOUR INPUT DIRECTION ACTIONS
 	# IF INPUT, ADD IT TO BUFFER
 	for dir in input_directions.keys():
-		if _event.is_action_pressed(dir, true):
-			if not move_tween.is_running():  # Take in continuous input only if tween has finished
-				move_buffer_continuous = dir
-				print("SM:M Continuous Input: " + dir)
-		if _event.is_action_pressed(dir, false):  # Take buffer input only if tween is running
-			if move_tween.is_running():
-				move_buffer_just_pressed = dir
-				print("SM:M Buffer Input: " + dir)
+		if _event.is_action_pressed(dir, true):  # Input with ECHO
+			move_buffer_continuous = dir
+			print("SM:M Continuous Input: " + dir)
+		if _event.is_action_pressed(dir, false):  # Input without ECHO
+			move_buffer_just_pressed = dir
+			print("SM:M Buffer Input: " + dir)
 	
 func update(_delta : float) -> void:
 	if move_tween.is_running():
