@@ -13,7 +13,7 @@ func handle_input(_event) -> void:
 	for dir in input_directions.keys():
 		if _event.is_action_pressed(dir, true):
 			action_direction = dir
-			print("SM Input: " + dir)
+			print("SM IDLE Input: " + dir)
 	
 	# IF THERE IS DIRECTIONAL INPUT
 	if action_direction != "none":
