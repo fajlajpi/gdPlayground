@@ -6,8 +6,6 @@ extends PlayerState
 var move_tween : Tween
 var move_buffer : String = "none"
 
-func handle_input(_event : InputEvent) -> void:
-	pass
 	
 func update(_delta : float) -> void:
 	if move_tween.is_running():
@@ -31,8 +29,10 @@ func update(_delta : float) -> void:
 			move_buffer = "none"
 			state_machine.transition_to("Idle")
 
+
 func physics_update(_delta : float) -> void:
 	pass
+
 
 func enter(_msg := {"dir":"none"}) -> void:
 	print_debug("Entering MOVING state.")
@@ -43,11 +43,13 @@ func enter(_msg := {"dir":"none"}) -> void:
 	#else:
 	#	return
 	
+	
 func exit() -> void:
 	print_debug("Exiting MOVING.")
 	player.sprite.stop()
 	move_buffer = "none"
 	move_tween.kill()
+
 
 func _move(dir):
 	print_debug("Started moving")
