@@ -2,19 +2,12 @@ class_name Idle
 extends PlayerState
 
 # IDLE state waits for input to take appropriate actions
+@onready var input_manager = get_node("/root/InputMgr")
 
-
-func handle_input(_event) -> void:
+func update(delta: float) -> void:
 	var action_to_take : int = -1
-	var action_direction : String = "none"
-	
-	# CHECK INPUT
-	# CHECK FOR THE FOUR INPUT DIRECTION ACTIONS
-	for dir in input_directions.keys():
-		if _event.is_action_pressed(dir, true):
-			action_direction = dir
-			print("SM IDLE Input: " + dir)
-	
+	var action_direction : String = input_manager.input_dir_continuous
+		
 	# IF THERE IS DIRECTIONAL INPUT
 	if action_direction != "none":
 		match _look_ahead(action_direction):
@@ -35,6 +28,3 @@ func enter(msg:={}) -> void:
 func exit() -> void:
 	print_debug("Exiting IDLE.")
 	
-
-func update(delta: float) -> void:
-	pass
