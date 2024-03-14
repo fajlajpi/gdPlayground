@@ -7,7 +7,7 @@ var interactible_types : Array = ["TOGGLE", "OTHER"]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_to_group("interactible")
-	pass # Replace with function body.
+	
 
 func _action():
 	pass
