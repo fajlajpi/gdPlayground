@@ -1,4 +1,20 @@
+class_name InteractionManager
 extends Node
+
+# INTERACTION MANAGER Plan
+# INTERACTION FLOW:
+# 1. Player bumps into something interactible, and sends out a signal with the instance ref.
+# 2. IM polls interactibles, finds the right one, and calls the interaction method
+# 3. Interactible method passes an InteractionBundle object back to the IM
+#    InteractionBundle encompasses things that the interaction needs to work - player flags, etc.,
+#    as well as what animation to play, icon to show, sound to play etc.
+#    All this is designed in the Interactible, possibly as an Object or Resource (TODO: Lookup)
+# 4. IM passes the InteractionBundle to the Player who has methods to determine if the interaction
+#    works or not
+# 5. Player passes to the IM the result - worked or not
+# 6. IM deals with the result - maybe pops a message, and also passes to the Interactible if the
+#    interaction worked, in case it needs to do something - like change state, animation, whatever
+
 
 @onready var player : Area2D = $Player
 signal mgr_interacted
