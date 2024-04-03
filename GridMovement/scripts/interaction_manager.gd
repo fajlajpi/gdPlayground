@@ -15,6 +15,13 @@ extends Node
 # 6. IM deals with the result - maybe pops a message, and also passes to the Interactible if the
 #    interaction worked, in case it needs to do something - like change state, animation, whatever
 
+# ALTERNATIVE INTERACTION PLAN
+# Doesn't need the interaction manager at all, goes directly to the colliding entity.
+# 1. Player bumps into something, checks if it's interactible, gets the reference from raycast
+# 2. Player calls a method on the interactible (get_action_reqs...)
+# 3. Player processes the reqs and passes or not
+# 4. Player calls a method on the interactible (action_passed or action_failed).
+
 
 @onready var player : Area2D = $Player
 signal mgr_interacted

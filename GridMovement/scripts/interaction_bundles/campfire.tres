@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InteractionBundle" load_steps=2 format=3 uid="uid://fibve1q7hfnf"]
+
+[ext_resource type="Script" path="res://GridMovement/scripts/interaction_bundle.gd" id="1_ak722"]
+
+[resource]
+script = ExtResource("1_ak722")
+interaction_name = "Campfire"
+interaction_type = 0
+method_self = &"fire_toggle"

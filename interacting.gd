@@ -11,11 +11,17 @@ func enter(msg:={"dir": "none"}):
 		"left": "idle_left",
 		"right": "idle_right",
 	}
-	player.sprite.animation = animation_directions[msg["dir"]]
+	player.sprite.animation = animation_directions[msg["dir"]]  # Sets the correct direction for player to face
 	
-	var colliding_with = player.ray.get_collider()
+	var colliding_with = player.ray.get_collider()  # Get object we're interacting with
 	print_debug("Interacting with: " + str(colliding_with))
-	player.interacted.emit(colliding_with)
+	if colliding_with.has_method("get_interaction_bundle"):  # Check if it's interactible and has method
+		var interaction_bundle: Resource = colliding_with.get_interaction_bundle()  # Get bundle
+		if _interaction_pass(interaction_bundle):  # simple check if we pass for this interaction
+			var method = interaction_bundle.method_self  # Pull the method from interaction bundle
+			if method != null:
+				colliding_with.call(method)  
+	# player.interacted.emit(colliding_with)
 	player.timer.start(player.interaction_timer)
 
 
@@ -32,3 +38,7 @@ func physics_update(_delta : float) -> void:
 func exit() -> void:
 	pass
 
+
+func _interaction_pass(interaction_bundle: Resource):
+	# now just return true, later check reqs
+	return true

@@ -1,8 +1,8 @@
 extends Area2D
 class_name Interactible
 
-var interactible_types : Array = ["TOGGLE", "OTHER"]
 @onready var interaction_mgr : Node = get_node("InteractionManager")
+@export var interaction_bundle : Resource
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,9 +17,8 @@ func _process(delta):
 	pass
 
 func _on_player_interacted(interactible):
-	if interactible == self:
-		print("Yay it's me!")
-		_action()
-	else:
-		print("not me")
-		pass
+	pass
+
+
+func get_interaction_bundle():
+	return interaction_bundle

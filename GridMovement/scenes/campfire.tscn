@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://ckiwp3g1mvbgb"]
+[gd_scene load_steps=10 format=3 uid="uid://ckiwp3g1mvbgb"]
 
 [ext_resource type="Script" path="res://GridMovement/scripts/campfire.gd" id="1_lokbe"]
 [ext_resource type="Texture2D" uid="uid://bpm55dgbh7nil" path="res://art/roguelikerpg/roguelikeSheet_transparent.png" id="2_81wfd"]
+[ext_resource type="Resource" uid="uid://fibve1q7hfnf" path="res://GridMovement/scripts/interaction_bundles/campfire.tres" id="2_m3nxa"]
 [ext_resource type="AudioStream" uid="uid://bdog7uoni1ujj" path="res://art/sfx/620324__marb7e__campfire-crackling-loop.wav" id="3_7myxp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3pdgy"]
@@ -44,6 +45,7 @@ size = Vector2(17.7778, 17.7778)
 [node name="Campfire" type="Area2D"]
 position = Vector2(-24, 24)
 script = ExtResource("1_lokbe")
+interaction_bundle = ExtResource("2_m3nxa")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_hlour")

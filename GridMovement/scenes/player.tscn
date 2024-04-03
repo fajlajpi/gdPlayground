@@ -167,6 +167,8 @@ animations = [{
 position = Vector2(8, 8)
 script = ExtResource("1_td8kb")
 interaction_timer = 0.3
+animation_speed = 0.3
+action_buffer = 0.2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_4scfa")
@@ -185,6 +187,7 @@ autoplay = "idle_right"
 [node name="Timer" type="Timer" parent="."]
 
 [node name="MoveBufferTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_yausu")

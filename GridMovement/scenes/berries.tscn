@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://cobjae8hgq53c"]
+
+[ext_resource type="Script" path="res://GridMovement/scripts/berries.gd" id="1_3h7wt"]
+[ext_resource type="Resource" uid="uid://djs6r0h720jes" path="res://GridMovement/scripts/interaction_bundles/berries.tres" id="2_166mt"]
+[ext_resource type="Texture2D" uid="uid://bpm55dgbh7nil" path="res://art/roguelikerpg/roguelikeSheet_transparent.png" id="3_n2yip"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8vtj"]
+atlas = ExtResource("3_n2yip")
+region = Rect2(408, 153, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rp0s5"]
+atlas = ExtResource("3_n2yip")
+region = Rect2(323, 153, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7wbxw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m8vtj")
+}],
+"loop": true,
+"name": &"grown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rp0s5")
+}],
+"loop": true,
+"name": &"harvested",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lw1mc"]
+size = Vector2(16, 16)
+
+[node name="Berries" type="Area2D"]
+position = Vector2(72, 24)
+script = ExtResource("1_3h7wt")
+respawn_time = 5.0
+interaction_bundle = ExtResource("2_166mt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7wbxw")
+animation = &"grown"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lw1mc")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

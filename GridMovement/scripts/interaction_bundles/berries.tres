@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InteractionBundle" load_steps=2 format=3 uid="uid://djs6r0h720jes"]
+
+[ext_resource type="Script" path="res://GridMovement/scripts/interaction_bundle.gd" id="1_jtnkq"]
+
+[resource]
+script = ExtResource("1_jtnkq")
+interaction_name = "Berries"
+interaction_type = 2
+method_self = &"harvest"

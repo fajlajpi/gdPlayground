@@ -11,9 +11,11 @@ func update(_delta : float) -> void:
 	if move_tween.is_running():
 		if input_manager.input_dir_isolated != "none":
 			move_buffer = input_manager.input_dir_isolated
+			player.move_buffer_timer.wait_time = player.action_buffer
+			player.move_buffer_timer.start()
 	else:
 		#  BUFFER Only, no continuous input
-		if input_manager.input_dir_continuous == "none" and move_buffer != "none":
+		if input_manager.input_dir_continuous == "none" and move_buffer != "none" and not player.move_buffer_timer.is_stopped():
 			if _look_ahead(move_buffer) == Actions.MOVE:
 				print_debug("Moving from BUFFER INPUT.")
 				_move(move_buffer)

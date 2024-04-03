@@ -11,7 +11,7 @@ var tile_size : int = 16
 # Export Variables
 @export var input_timer : float = 0.1
 @export var interaction_timer : float = 0.5
-@export var animation_speed : float = 0.3
+@export var animation_speed : float = 1.0
 @export var action_buffer : float = 0.3
 
 # Onready Variables
