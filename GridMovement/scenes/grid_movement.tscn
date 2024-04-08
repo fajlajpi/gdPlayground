@@ -8795,3 +8795,24 @@ layer_2/tile_data = PackedInt32Array(65528, 1179649, 9, -6, 1048577, 9, -5, 1048
 layer_3/name = "Sky"
 layer_3/z_index = 100
 layer_3/tile_data = PackedInt32Array(-131063, 1310721, 23, -196598, 1310721, 23, -196597, 1376257, 23, -131060, 1376257, 23, -196596, 1376257, 22, -262132, 1376257, 22, -327668, 1376257, 22, -393204, 1376257, 21, -458741, 1376257, 21, -458742, 1310721, 21, -393207, 1310721, 21, -327671, 1310721, 22, -262135, 1310721, 22, -196599, 1310721, 22, -262134, 1310721, 22, -393206, 1310721, 22, -393205, 1376257, 22, -327669, 1376257, 22, -262133, 1376257, 22, -327670, 1310721, 22, -65526, 2883585, 5, -65525, 2883585, 5)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -32.0
+offset_right = 64.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
